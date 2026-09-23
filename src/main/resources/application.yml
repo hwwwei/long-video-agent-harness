@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:h2:file:./.runtime/video-harness;MODE=PostgreSQL}
+    username: ${DATABASE_USERNAME:sa}
+    password: ${DATABASE_PASSWORD:}
+  flyway:
+    enabled: true
+  data:
+    redis:
+      url: ${HARNESS_REDIS_URL:redis://localhost:6379}
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: video-harness-workers
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    admin:
+      fail-fast: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+harness:
+  storage-root: ${HARNESS_STORAGE_ROOT:./.runtime/media}
+  redis:
+    enabled: ${HARNESS_REDIS_ENABLED:false}
+    url: ${HARNESS_REDIS_URL:redis://localhost:6379}
+  kafka:
+    enabled: ${HARNESS_KAFKA_ENABLED:false}
+  worker:
+    enabled: ${HARNESS_WORKER_ENABLED:false}
+  local-worker:
+    enabled: ${HARNESS_LOCAL_WORKER_ENABLED:false}
+  media:
+    enabled: ${HARNESS_MEDIA_ENABLED:false}
+  provider: ${HARNESS_PROVIDER:mock}
+  model:
+    url: ${HARNESS_MODEL_URL:}
+    name: ${HARNESS_MODEL_NAME:}
+    key: ${HARNESS_MODEL_KEY:}

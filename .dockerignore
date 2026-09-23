@@ -1,0 +1,7 @@
+.git
+.m2
+.runtime
+target
+docs
+scripts
+*.md

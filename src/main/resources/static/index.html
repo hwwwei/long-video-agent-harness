@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Long Video Agent Harness</title>
+  <link rel="stylesheet" href="/dashboard.css">
+  <script src="/dashboard.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><div class="brand"><span class="mark">LV</span><div><strong>Long Video Agent Harness</strong><small>内容理解 · 可审计的 Agent Runtime</small></div></div><span class="badge">DEMO / MOCK TRANSCRIPT</span></header>
+  <main>
+    <section class="hero"><div><p class="eyebrow">VIDEO INTELLIGENCE WORKBENCH</p><h1>从长视频到有证据的摘要</h1><p>真实分片上传与媒体处理，异步 Agent DAG。默认转写与 Agent 使用可复现的 Mock；摘要只依据你提供的转写文本。</p></div><div class="hero-actions"><button id="sample" class="primary">生成样例视频并运行</button><button id="refresh" class="secondary">刷新运行</button></div></section>
+    <div class="layout">
+      <section class="panel input-panel"><div class="panel-heading"><span class="number">01</span><div><h2>提交视频</h2><p>8 MiB 分片 · SHA-256 · 可续传</p></div></div><label class="field">视频文件<input id="file" type="file" accept="video/*"></label><label class="field">模拟转写（每行一个片段）<textarea id="transcript" rows="7">今天介绍长视频内容理解系统的设计。
+上传服务使用分片和 SHA-256 校验，完成后由 FFmpeg 提取音频。
+Agent 从提供的转写文本提取事实，Critic 对照原文进行盲审。</textarea></label><p class="notice">模拟转写：系统不会从视频音频生成这些文字。请提供真实对应的转写文本；样例视频仅演示媒体处理与异步编排。</p><button id="upload" class="primary wide">上传并开始分析</button><div id="progress" class="progress"><span></span></div><p id="upload-state" class="muted">等待文件</p></section>
+      <section class="panel run-panel"><div class="panel-heading"><span class="number">02</span><div><h2>Run 与 DAG</h2><p>数据库租约 · Checkpoint · Trace</p></div></div><div class="run-meta"><span id="run-id">尚未创建 Run</span><span id="run-status" class="status">IDLE</span></div><div id="budget" class="budget"></div><div id="dag" class="dag empty">选择一个 Run 查看节点</div><p id="node-detail" class="muted"></p><div class="section-head"><h3>最近运行</h3></div><div id="runs" class="run-list"></div></section>
+      <section class="panel result-panel"><div class="panel-heading"><span class="number">03</span><div><h2>报告与证据</h2><p>事实不脱离原文</p></div></div><div class="section-head"><h3>摘要</h3><span class="pill">SIMULATED TRANSCRIPT</span></div><p id="summary" class="summary muted">Run 完成后显示摘要。</p><div class="section-head"><h3>关键事实</h3></div><div id="facts" class="facts"></div><div class="section-head"><h3>Critic 复核</h3></div><div id="critic" class="reviews"></div></section>
+      <section class="panel trace-panel"><div class="panel-heading"><span class="number">04</span><div><h2>Trace 时间线</h2><p>每个节点的开始、完成、失败</p></div></div><div id="trace" class="timeline"></div></section>
+      <section class="panel metrics-panel"><div class="panel-heading"><span class="number">05</span><div><h2>Benchmark 与演进</h2><p>Provider-only · 12 Validation / 8 Holdout</p></div></div><div class="actions"><button id="benchmark" class="secondary">运行 Benchmark</button><button id="propose" class="secondary">评测候选 maxFacts=3</button><button id="rollback" class="secondary">回滚上一版本</button></div><div id="metrics" class="metric-grid"></div><div class="section-head"><h3>版本审计</h3></div><div id="versions" class="versions"></div></section>
+    </div>
+  </main>
+  <footer>单租户面试演示原型 · Mock 指标不代表真实模型质量 · MCP 仅为只读白名单适配层</footer>
+</body>
+</html>
